@@ -1,0 +1,108 @@
+.container{
+    width: 100%;
+    height: 100vh;
+}
+.login_header{
+    width: 100%;
+    height: 300px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.heading{
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 60px;
+    text-align: center;
+}
+.company_title{
+    font-weight: 600;
+}
+
+.form_wrapper{
+    width: 100%;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+}
+
+.input_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-top: 50px;
+}
+.registration_link{
+    text-decoration: none;
+    line-height: 21px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--primary);
+    font-size: 14px;
+}
+.login_button{
+    background-color: var(--primary);
+    color: #fff;
+    min-width: 480px;
+    min-height: 56px;
+    padding: 13px 16px;
+    border-radius: 42px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
+    border: none;
+
+}
+.login_button:disabled{
+    background-color: #d7d7d7;
+    color: #767676;
+}
+
+.login_button:active{
+    background-color: #595959;
+    color: #f8f8f8;
+}
+.showHide_btn{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+}
+.login_input,
+.password_input{
+    min-width: 480px;
+    min-height: 56px;
+    padding: 9px 24px;
+    border-radius: 42px;
+    background-color: var(--input-field-background);
+    line-height: 24px;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input{
+    width: 100%;
+    color: var(--text);
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    background-color: var(--input-field-background);
+}
+.label{
+    color: var(--primary);
+    font-size: 18px;
+}
+.p{
+    font-weight: 400;
+}
