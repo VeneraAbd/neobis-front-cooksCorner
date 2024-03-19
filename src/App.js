@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import HomePage from "./pages/HomePage/HomePage";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import SplashScreen from "./components/SplashScreen/SplashScreen";
 
@@ -22,13 +22,13 @@ function App() {
   return (
       <Routes>
         <Route
-          path="/"
+          path="/login"
           element={
             showSplash ? <SplashScreen /> : <LoginPage />
           }
         />
         <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/home" element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="profile" element={<ProfilePage />} />
