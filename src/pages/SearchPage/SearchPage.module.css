@@ -1,0 +1,94 @@
+.container{
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+.h3{
+    color: var(--text);
+    font-weight: 500;
+    font-size: 24px;
+    text-align: center;
+    line-height: 36px;
+}
+.tab_container{
+    max-width: 480px;
+    max-height: 64px;
+    background-color: #FFF6DE;
+    border-radius: 100px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 16px;
+}
+.tab_item{
+    width: 222px;
+    height: 44px;
+    color: var(--text);
+    padding: 10px;
+    border-radius: 100px;
+    text-align: center;
+    vertical-align: center;
+    cursor: pointer;
+}
+.tab_item_active{
+    width: 222px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    padding: 10px;
+    border-radius: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+.form{
+    width: 100%;
+    display: flex;
+}
+.input{
+    width: 100%;
+    border: none;
+    background-color: var(--input-field-background);
+    padding: 12px 24px;
+    /* padding-right: 30px; */
+    border-radius: 42px;
+    color: var(--text);
+    font-size: 16px; 
+    line-height: 24px;
+    outline-color: var(--primary);   
+    /* background-image: url("../../assets/search.svg");
+    background-position: right center;
+    background-repeat: no-repeat;  */
+}
+.inout::-webkit-search-cancel-button{
+    color: var(--primary);    
+}
+
+::placeholder{
+    color: var(--text-faded);
+}
+.add_recipe_button{
+    width: 480px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    border-radius: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    padding: 12px 127px;
+    font-size: 16px;
+    cursor: pointer;
+}

@@ -2,59 +2,6 @@
     width: 100%;
     display: flex;
 }
-.sidebar{
-    flex: 0 0 96px;
-    width: 96px;
-    height: 100vh;
-    background-color: var(--input-field-background);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-.sidebar_buttons{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px;
-}
-.logo_wrapper{
-    width: 84px;
-    border-bottom: 2px solid var(--icon-faded);
-    padding: 25px 15px;
-}
-
-.pages{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-.link{
-    background-color: var(--background);
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-}
-.logout_button{
-    border: none;
-    cursor: pointer;
-}
 .main{
     flex: 1;
-}
-.active_link{
-    background-color: var(--primary);
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
 }

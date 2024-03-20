@@ -140,7 +140,7 @@ const RegistrationPage = () => {
           </div>
         </div>
         <button type="submit" className={styles.login_button}>Sign Up</button>
-        <p className={styles.p}>Already have an account? <Link to="/" className={styles.registration_link}>Sign In Now</Link></p>
+        <p className={styles.p}>Already have an account? <Link to="/login" className={styles.registration_link}>Sign In Now</Link></p>
 
       </form>
     </div>
