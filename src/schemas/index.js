@@ -29,3 +29,10 @@ export const loginValidationSchema = yup.object().shape({
     email: yup.string().email("Please enter a valid email").required('Required'),
     password: yup.string().required('Required'),  
 })
+
+export const createRecipeValidationSchema = yup.object().shape({
+
+})
+// Yup.object().shape({
+//     profileName: Yup.string().required('Profile name is required'),
+//     biography: Yup.string().required('Biography is required'),

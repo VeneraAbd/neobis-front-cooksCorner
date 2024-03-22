@@ -54,3 +54,38 @@
     justify-content: center;
     border-radius: 10px;
 }
+
+/* modal window */
+.modal_container{
+    padding: 10px 20px;        
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.h2{
+    width: 289px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 36px;
+    text-align: center;
+}
+
+.button_wrapper{
+    display: flex;
+    gap: 10px;
+}
+
+.modal_button{
+    width: 148px;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #FFF6DE;
+}
+.modal_button:hover{
+    background-color: var(--primary);
+    color: var(--background);
+}

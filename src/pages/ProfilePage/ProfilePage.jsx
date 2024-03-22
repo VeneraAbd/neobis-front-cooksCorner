@@ -1,8 +1,15 @@
 import styles from "./ProfilePage.module.css";
 import Card from "../../components/Card/Card";
+import ModalComponent from "../../components/ModalComponent/ModalComponent";
 // import '../styles/profile.css'
+import { useState } from "react";
+import ProfileModalForm from "../../components/ProfileModalForm/ProfileModalForm";
 
 const ProfilePage = () => {
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
   return (
     <div className={styles.profile_container}>
@@ -18,7 +25,10 @@ const ProfilePage = () => {
             </div>
             <h4 className={styles.full_name}>Sarthak Ranjan Hota</h4>
             <p className={styles.description}>I'm a passionate chef who loves creating delicious dishes with flair.</p>
-            <button className={styles.edit_profile_button}>Manage Profile</button>
+            <button onClick={onOpenModal} className={styles.edit_profile_button}>Manage Profile</button>
+            <ModalComponent open={open} onClose={onCloseModal}>
+              <ProfileModalForm/>
+            </ModalComponent>
           </div>
         </div>
 

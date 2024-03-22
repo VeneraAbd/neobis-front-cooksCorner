@@ -17,3 +17,7 @@
   --background: #fafafa;
   --red: #ff5151;
 }
+
+.react-responsive-modal-modal{
+  border-radius: 20px;
+}
