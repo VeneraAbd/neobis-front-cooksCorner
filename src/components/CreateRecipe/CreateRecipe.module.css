@@ -1,7 +1,7 @@
 .form_container{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     width: 480px;
 }
 .h2{
@@ -52,14 +52,9 @@
 }
 .file_input{
     display: none;
-    /* border: none;
-    outline: none;
-    background-color: var(--input-field-background); */
-    /* font-size: 16px;
-    font-weight: 400;
-    color: var(--icon-faded); */
 }
-.custom_input{
+.custom_input,
+.button{
     border: none;
     background-color: var(--input-field-background);
     border-radius: 42px;
@@ -69,6 +64,10 @@
     color: var(--text);
     line-height: 24px;
     outline: none;
+    margin-right: 5px;
+}
+.button{
+    cursor: pointer;
 }
 .save_button{
     background-color: var(--primary);
@@ -79,4 +78,67 @@
     font-weight: 400;
     padding: 15px;
     cursor: pointer;
+}
+.add_button{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.active{
+    background-color: var(--primary);
+    border: none;
+    border-radius: 41px;
+    color: var(--secondary);
+    font-size: 16px;
+    font-weight: 400;
+    padding: 15px;
+    cursor: pointer;
+}
+.num_input{
+    width: 50px;
+    border: none;
+    font-size: 16px;
+    color: var(--icon-faded);
+    background: transparent;
+    padding-left: 15px;
+}
+.ingredients_wrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.ingredient_input{
+    border: none;
+    width: 285px;
+    background-color: var(--input-field-background);
+    border-radius: 42px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 24px;
+    outline: none;
+    margin-right: 5px;
+}
+.amount{
+    display: flex;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--input-field-background);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 17px;
+    outline: none;
+    padding: 0 15px 0 0 ; 
+}
+.unit{
+    border: none;
+    border-radius: 20px;
+    background-color: var(--input-field-background);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 17px;
+    outline: none;
 }

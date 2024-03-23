@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'; // Import Yup for validation
+import * as Yup from 'yup'; 
 import styles from './ProfileModalForm.module.css';
 import photo from '../../assets/photo.svg';
 
@@ -17,7 +17,6 @@ const ProfileModalForm = () => {
     }),
     onSubmit: (values) => {
       console.log('Form values:', values);
-      // Add logic here to handle form submission, such as making API calls
     },
   });
 

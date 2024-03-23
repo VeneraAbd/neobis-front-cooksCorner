@@ -1,7 +1,6 @@
 import styles from "./ProfilePage.module.css";
 import Card from "../../components/Card/Card";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
-// import '../styles/profile.css'
 import { useState } from "react";
 import ProfileModalForm from "../../components/ProfileModalForm/ProfileModalForm";
 
