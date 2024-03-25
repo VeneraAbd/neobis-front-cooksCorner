@@ -12,10 +12,10 @@ const initialState = {
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ email, username, password, confirmPassword }, thunkAPI) => {
+  async ({ email, name, password, confirmPassword }, thunkAPI) => {
     try {
       const response = await axios.post("https://cookscorner-production-6571.up.railway.app/api/v1/auth/register", {
-        email, username, password, confirmPassword
+        email, name, password, confirmPassword
       });
       console.log("response", response)
       thunkAPI.dispatch(setEmail(email));
@@ -26,26 +26,43 @@ export const register = createAsyncThunk(
   }
 );
 
-// export const login = createAsyncThunk(
-//   "auth/login",
-//   async ({ username, password }, thunkAPI) => {
-//     try {
-//       const response = await axios.post(
-//         "https://kunasyl-backender.org.kg/login/",
-//         {
-//           username, password
-//         }
-//       );
+export const login = createAsyncThunk(
+  "auth/login",
+  async ({ email, password }, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        "https://cookscorner-production-6571.up.railway.app/api/v1/auth/login",
+        {
+          email, password
+        }
+      );
 
-//         localStorage.setItem("refreshToken", response.data.tokens.refresh);
-//         localStorage.setItem("accessToken", response.data.tokens.access);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        localStorage.setItem("accessToken", response.data.accessToken);
+      console.log(response, "login response")
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data.errors);
+    }
+  }
+)
 
-//       return response.data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response.data.errors);
-//     }
-//   }
-// );
+export const getCurrentUser = createAsyncThunk(
+  "auth/getCurrentUser",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("accessToken") ?? "";
+      const response = await axios.get("https://cookscorner-production-6571.up.railway.app/api/v1/auth/refresh-token", {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+      return response.data.user;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data.errors);
+    }
+  }
+);
 
 // export const getCurrentUser = createAsyncThunk(
 //   "auth/getCurrentUser",
@@ -57,7 +74,7 @@ export const register = createAsyncThunk(
 //     //   if (decodedToken.exp && decodedToken.exp - moment().unix() < 10) {
         
 //     //     const refreshToken = localStorage.getItem("refreshToken") ?? "";
-//     //     const refreshResponse = await axios.post("https://kunasyl-backender.org.kg/token/refresh/", {
+//     //     const refreshResponse = await axios.post("https://cookscorner-production-6571.up.railway.app/api/v1/auth/refresh-token", {
 //     //       refresh: refreshToken
 //     //     });
 //     //     const newAccessToken = refreshResponse.data.access;
@@ -101,27 +118,27 @@ const authSlice = createSlice({
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
       })
-    //   .addCase(login.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(login.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.currentUser = action.payload;
-    //   })
-    //   .addCase(login.rejected, (state) => {
-    //     state.isLoading = false;
-    //   })
-    //   .addCase(getCurrentUser.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(getCurrentUser.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.currentUser = action.payload;
-    //   })
-    //   .addCase(getCurrentUser.rejected, (state) => {
-    //     state.isLoading = false;
-    //     state.currentUser = null;
-    //   })
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(login.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getCurrentUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(getCurrentUser.rejected, (state) => {
+        state.isLoading = false;
+        state.currentUser = null;
+      })
     //   .addCase(logout.fulfilled, (state) => {
     //     state.isLoading = false;
     //     state.currentUser = null;

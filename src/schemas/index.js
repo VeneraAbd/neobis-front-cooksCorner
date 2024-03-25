@@ -5,7 +5,7 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 
 export const signupValidationSchema = yup.object().shape({
     email: yup.string().email("Please enter a valid email").required("Обязательное поле"),
-    username: yup
+    name: yup
         .string()
         .matches(USER_REGEX, {message: "такой логин уже существует"})
         .required("Обязательное поле"),
@@ -19,7 +19,7 @@ export const signupValidationSchema = yup.object().shape({
         .matches(/\d+/, 'Минимум 1 цифра')
         .matches(/[@$!%*#?&]+/, 'Минимум 1 спецсимвол (!, ", #, $...)'),
     
-    password_confirm: yup
+    confirmPassword: yup
         .string()
         .oneOf([yup.ref("password"), null], "Пароли должны совпадать")
         .required("Обязательное поле"),

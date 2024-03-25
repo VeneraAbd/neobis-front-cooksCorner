@@ -26,18 +26,19 @@ const RegistrationPage = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const onFormSubmit = ({ email, username, password, confirmPassword }) => {
-    dispatch(register({ email, username, password, confirmPassword })).then(() => {
-      console.log(email, username, password, confirmPassword)
+  const onFormSubmit = ( values ) => {
+    const { email, name, password, confirmPassword } = values;
+    dispatch(register({email, name, password, confirmPassword })).then(() => {
       toast.success('Вы успешно зарегистрированы');
       navigate('/login');
+      console.log(email, name, password, confirmPassword)
     });
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+  const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
+      name: '',
       email: '',
-      username: '',
       password: '',
       confirmPassword: '',
     },
@@ -55,13 +56,13 @@ const RegistrationPage = () => {
         <div className={styles.input_wrapper}>
           {/* name */}
           <div>
-            <label htmlFor="username" className={styles.label}>Name</label>
+            <label htmlFor="name" className={styles.label}>Name</label>
               <div className={styles.password_input}>
                 <input
+                  value={values.name}
                   type="text"
-                  id="username"
-                  name="username"
-                  value={values.username}
+                  id="name"
+                  name="name"
                   placeholder="Enter your name"
                   className={styles.input}
                   onChange={handleChange}
@@ -69,13 +70,14 @@ const RegistrationPage = () => {
                 />
                 <button className={styles.showHide_btn} type="button"><img src={user} alt="user icon" /></button>
               </div>
-              {errors.username && touched.username && <p className={styles.error}>{errors.username}</p>}
+              {errors.name && touched.name && <p className={styles.error}>{errors.name}</p>}
           </div>
           {/* email */}
           <div>
             <label htmlFor="email" className={styles.label}>Gmail</label>
             <div className={styles.password_input}>
                 <input 
+                  value={values.email}
                   type="email"
                   id="email"
                   name="email"
@@ -83,25 +85,23 @@ const RegistrationPage = () => {
                   className={styles.input}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.email}
                 />
                 <button className={styles.showHide_btn} type="button"><img src={at} alt="at sign" /></button>
             </div>
-            {touched.email && errors.email ? (<div className={styles.error}>{errors.email}</div>
-            ) : null}
+            {errors.email && touched.email && <p className={styles.error}>{errors.email}</p>}
           </div>
           {/* password */}
           <div>
             <label htmlFor="password" className={styles.label}>Password</label>
               <div className={styles.password_input}>
                 <input
+                  value={values.password}
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   placeholder="Enter your password"
                   className={styles.input}
                   onChange={handleChange}
-                  value={values.password}
                   onBlur={handleBlur}
                 
                 />
@@ -109,9 +109,7 @@ const RegistrationPage = () => {
                   <img src={showPassword ? hide : show} alt="show or hide password" />
                 </button>
               </div>
-              {errors.password && touched.password && (
-              <p className={styles.error}>{errors.password}</p>
-              )}
+              {errors.password && touched.password && (<p className={styles.error}>{errors.password}</p>)}
           </div>
           {/* confirm password */}
           <div>
@@ -123,9 +121,7 @@ const RegistrationPage = () => {
                 name="confirmPassword"
                 value={values.confirmPassword}
                 placeholder="Re-Enter your Password"
-                className={`${styles.input} ${
-                  errors.confirmPassword && touched.confirmPassword ? styles.input_error : ''
-                }`}
+                className={`${styles.input} ${errors.confirmPassword && touched.confirmPassword ? styles.input_error : ''}`}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -133,15 +129,11 @@ const RegistrationPage = () => {
                 <img src={showConfirmPassword ? hide : show} alt="show or hide password" />
               </button>
             </div>
-            {errors.confirmPassword && touched.confirmPassword && (
-              <p className={styles.error}>{errors.confirmPassword}</p>
-            )}
+            {errors.confirmPassword && touched.confirmPassword && (<p className={styles.error}>{errors.confirmPassword}</p>)}
           </div>
-
         </div>
-        <button type="submit" className={styles.login_button}>Sign Up</button>
+        <button disabled={isSubmitting} type="submit" className={styles.login_button}>Sign Up</button>
         <p className={styles.p}>Already have an account? <Link to="/login" className={styles.registration_link}>Sign In Now</Link></p>
-
       </form>
     </div>
   );
