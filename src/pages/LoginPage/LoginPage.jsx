@@ -4,71 +4,48 @@ import { Link } from 'react-router-dom';
 import { loginValidationSchema } from "../../schemas/index";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import show from "../../assets/show.svg";
 import hide from "../../assets/hide.svg";
 import at from "../../assets/at.svg";
-import { login } from "../../store/reducers/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../../components/Spinner/Spinner";
+import { login, reset } from "../../features/auth/authSlice";
 
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
+
+  useEffect(() => {
+    if(isError){
+      toast.error(message)
+      console.log(message)
+    }
+    if(isSuccess || user){
+      navigate('/')
+    }
+
+    dispatch(reset())
+  }, [ user, isError, isSuccess, message, navigate, dispatch])
 
   const toggleShowPassword = () =>{
     setShowPassword(!showPassword)
   }
 
-  // const loginFormSubmit = async( values ) =>{
-  //   const { email, password } = values;
-  //   console.log("form is submitted")
-  //   try {
-  //     const response = await dispatch(login({ email, password }));
-  //     console.log(response);
-      
-  //     if (response.payload) {
-  //       navigate('/');
-  //       toast.success('Successfully logged in');
-  //     } else {
-  //       toast.error('Invalid username or password');
-  //     }
-  //   } catch (error) {
-  //     console.error('Login error:', error);
-      
-  //     if (error.response && error.response.status === 401) {
-  //       toast.error('Unauthorized: Invalid username or password');
-  //     } else {
-  //       toast.error('Login failed');
-  //     }
-  //   }
-  // }
-  const loginFormSubmit = async (values) => {
+  const loginFormSubmit = async( values ) =>{
     const { email, password } = values;
-    console.log("form is submitted");
-    try {
-      const response = await dispatch(login({ email, password })).then((action)=>{
-        localStorage.setItem("refreshToken", action.payload.refreshToken);
-        localStorage.setItem("accessToken", action.payload.accessToken);
-      });
-  
-      if (response.payload) {
-        navigate('/');
-        toast.success('Successfully logged in');
-      } else {
-        toast.error('Invalid username or password');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-  
-      if (error.response && error.response.status === 401) {
-        toast.error('Unauthorized: Invalid username or password');
-      } else {
-        toast.error('Login failed');
-      }
-    }
-  };
+    console.log("form is submitted")
+
+    dispatch(login({ email, password }))
+    toast("Succesfully logged in")
+  }
   
   const { values, errors, touched, handleBlur, handleChange, isValid, handleSubmit} = useFormik({
     initialValues:{
@@ -79,6 +56,10 @@ const LoginPage = () => {
     onSubmit: loginFormSubmit,
   });
 
+  if(isLoading){
+    return <Spinner/>
+
+  }
   return (
     <div className={styles.container}>
       <section className={styles.login_header}>

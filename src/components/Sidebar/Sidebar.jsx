@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from "./Sidebar.module.css"; 
 import logo from "../../assets/logo.svg";
 import logout_icon from "../../assets/logout-icon.svg";
@@ -10,10 +10,18 @@ import whiteprofile from "../../assets/whiteprofile.svg";
 import whitesearch from "../../assets/whitesearch.svg";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import { useState } from 'react';
+import { UseSelector, useDispatch, useSelector } from 'react-redux';
+import { logout, reset } from "../../features/auth/authSlice";
+
 
 const Sidebar = () => {
+
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth)
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
@@ -21,6 +29,11 @@ const Sidebar = () => {
     return isActive ? styles.active_link : styles.link
   }
 
+  const onLogout =() =>{
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/login')
+  }
   return (
     <header className={styles.sidebar}>
             <div className={styles.logo_wrapper}>
@@ -37,7 +50,7 @@ const Sidebar = () => {
                 <div className={styles.modal_container}>
                     <h2 className={styles.h2}>Are you sure you wanna leave?</h2>
                     <div className={styles.button_wrapper}>
-                      <button className={styles.modal_button}>Yes</button>
+                      <button className={styles.modal_button} onClick={onLogout}>Yes</button>
                       <button className={styles.modal_button}>No</button>
                     </div>
                 </div>

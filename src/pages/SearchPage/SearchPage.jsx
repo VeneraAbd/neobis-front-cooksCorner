@@ -43,6 +43,7 @@ const SearchPage = () => {
             value={searchWord}
             onChange={(e) => setSearchWord(e.target.value)}
           />
+
           {/* <img src={search_icon} alt="search icon" /> */}
         </form>
       </div>

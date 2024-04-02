@@ -1,22 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import at from "../../assets/at.svg";
-import user from "../../assets/user.svg"
+import user_icon from "../../assets/user.svg"
 import show from '../../assets/show.svg';
 import hide from '../../assets/hide.svg';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { register } from '../../store/reducers/auth';
+import { useSelector, useDispatch } from 'react-redux';
+import { register, reset } from '../../features/auth/authSlice';
 import { signupValidationSchema } from '../../schemas/index';
 import styles from './RegistrationPage.module.css';
-
+import Spinner from "../../components/Spinner/Spinner";
 const RegistrationPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
+
+  useEffect(() => {
+    if(isError){
+      toast.error(message)
+      console.log(message)
+    }
+    if(isSuccess || user){
+      navigate('/confirmation')
+    }
+
+    dispatch(reset())
+  }, [ user, isError, isSuccess, message, navigate, dispatch])
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -26,15 +44,12 @@ const RegistrationPage = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const onFormSubmit = ( values ) => {
-    const { email, name, password, confirmPassword } = values;
+  const onFormSubmit = ( { email, name, password, confirmPassword } ) => {
     dispatch(register({email, name, password, confirmPassword })).then(() => {
       toast.success('Вы успешно зарегистрированы');
-      navigate('/login');
-      console.log(email, name, password, confirmPassword)
     });
   };
-
+  
   const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
       name: '',
@@ -45,7 +60,13 @@ const RegistrationPage = () => {
     validationSchema: signupValidationSchema,
     onSubmit: onFormSubmit,
   });
+
   
+  
+  if(isLoading){
+    return <Spinner/>
+  }
+
   return (
     <div className={styles.container}>
       <section className={styles.login_header}>
@@ -68,7 +89,7 @@ const RegistrationPage = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                <button className={styles.showHide_btn} type="button"><img src={user} alt="user icon" /></button>
+                <button className={styles.showHide_btn} type="button"><img src={user_icon} alt="user icon" /></button>
               </div>
               {errors.name && touched.name && <p className={styles.error}>{errors.name}</p>}
           </div>
